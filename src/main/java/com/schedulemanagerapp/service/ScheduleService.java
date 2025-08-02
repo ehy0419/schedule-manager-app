@@ -1,6 +1,6 @@
 package com.schedulemanagerapp.service;
 
-import com.schedulemanagerapp.dto.ScheduleReponse;
+import com.schedulemanagerapp.dto.ScheduleResponse;
 import com.schedulemanagerapp.dto.ScheduleRequest;
 import com.schedulemanagerapp.entity.Schedule;
 import com.schedulemanagerapp.repository.ScheduleRepository;
@@ -15,8 +15,8 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
     @Transactional
-    public ScheduleReponse save(ScheduleRequest scheduleRequest) {
+    public ScheduleResponse save(ScheduleRequest scheduleRequest) {
         Schedule savedSchedule = scheduleRepository.save(new Schedule(scheduleRequest.getScheduleName()));
-        return new ScheduleReponse(savedSchedule.getScheduleId(), savedSchedule.getScheduleName());
+        return new ScheduleResponse(savedSchedule.getScheduleId(), savedSchedule.getScheduleName());
     }
 }
