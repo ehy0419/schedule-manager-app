@@ -16,21 +16,22 @@ public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long scheduleId;
-    private String scheduleName;
-    private String scheduleDescription;
-    private LocalDateTime scheduleStartTime;
-    private LocalDateTime scheduleEndTime;
+    private Long id;
 
-    public Schedule(String scheduleName, String scheduleDescription, LocalDateTime scheduleStartTime, LocalDateTime scheduleEndTime) {
-        this.scheduleName = scheduleName;
-        this.scheduleDescription = scheduleDescription;
-        this.scheduleStartTime = scheduleStartTime;
-        this.scheduleEndTime = scheduleEndTime;
+    private String title;
+    private String description;
+    private LocalDateTime scheduleTime;
+
+    public Schedule(String title, String description, LocalDateTime scheduleTime) {
+        this.title = title;
+        this.description = description;
+        this.scheduleTime = scheduleTime;
     }
 
-    public void updateSchedule(Schedule schedule) {
-        this.scheduleName = schedule.getScheduleName();
-        this.scheduleDescription = schedule.getScheduleDescription();
+    public void update(String title, String description, LocalDateTime scheduleTime) {
+        this.title = title;
+        this.description = description;
+        this.scheduleTime = scheduleTime;
     }
+
 }
