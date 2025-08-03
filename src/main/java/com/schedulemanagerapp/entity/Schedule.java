@@ -21,6 +21,13 @@ public class Schedule {
     private String description;
     private LocalDateTime scheduleTime;
 
+    /// 1. 오류 확인 - 생성자 없음
+    public Schedule(String title, String description, LocalDateTime scheduleTime) {
+        this.title = title;
+        this.description = description;
+        this.scheduleTime = scheduleTime;
+    }
+
     ///  업데이트하고자 하는 필드만 업데이트 해주기
     public void updateTitle(String title) {
         this.title = title;
