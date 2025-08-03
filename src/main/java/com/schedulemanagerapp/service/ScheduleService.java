@@ -43,6 +43,9 @@ public class ScheduleService {
             );
             scheduleResponseList.add(scheduleResponse);
         }
+        /// 반환값 누락
+        // 리스트 생성하고 데이터를 담았지만, return이 없었다.
+        return scheduleResponseList;
     }
 
     @Transactional(readOnly = true)
