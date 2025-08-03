@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ScheduleRequest {
 
-    private String scheduleName;
-    private String scheduleDescription;
+    private String title;
+    private String description;
     private LocalDateTime scheduleTime;
 }

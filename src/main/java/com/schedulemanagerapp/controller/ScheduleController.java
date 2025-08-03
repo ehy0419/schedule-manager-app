@@ -21,16 +21,19 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
+//    private final ScheduleRepository scheduleRepository;    이것은 3계층 순서를 안 지킨 것
+    //  controller -> service -> repository
 //순서 이유 : 클래스 정의 -> 어노테이션으로 역할 부여 -> 필요한 서비스 선언
 //역할
 //@RestController: REST API 응답을 반환하는 컨트롤러임을 명시.
 //@RequiredArgsConstructor: final 필드인 scheduleService를 자동 생성자 주입.
 //ScheduleService: 비즈니스 로직을 담당하는 서비스 계층 호출.
 
-
     ///  메서드 작성 순서 CRUD 중 C. CREATE 일정 생성
-    @PostMapping("/schedules")
+    @PostMapping("/schedules")          ///  API 마다 DTO를 따로 만들어주는게 '정석'이다 (유지보수를 위해서)
     public ScheduleResponse createSchedule(
+            /// 원래 dto에 나누어서 만들어야한다.
+            // ScheduleCreateRequest(또는 SaveRequest) , ScheduleUpdateRequest)
             @RequestBody ScheduleRequest scheduleRequest
     ) {
         return scheduleService.save(scheduleRequest);
@@ -57,12 +60,13 @@ public class ScheduleController {
 //@PathVariable: 경로에 포함된 ID 값을 메서드 매개변수로 사용.
 
     ///  메서드 작성 순서 CRUD 중 U. UPDATE 일정 수정
-    @PutMapping("/schedules/{scheduleId}")
+//    @PutMapping("/schedules/{scheduleId}")
+    @PatchMapping("/schedules/{scheduleId}")
     public ScheduleResponse updateSchedule(
             @PathVariable Long scheduleId,
             @RequestBody ScheduleRequest scheduleRequest
     ) {
-        return scheduleService.update(scheduleId, scheduleRequest);
+        return scheduleService.updateSchedule(scheduleId, scheduleRequest);
     }
 //이유: 데이터 조회 후, 수정할 수 있는 기능 추가.
 //@PutMapping: 자원의 전체 수정을 의미하는 HTTP 메서드.
@@ -73,7 +77,7 @@ public class ScheduleController {
     public void deleteSchedule(
             @PathVariable Long scheduleId
     ) {
-        scheduleService.deleteSchedule(scheduleId);
+        return scheduleService.deleteSchedule(scheduleId);
     }
 //이유: 불필요한 데이터를 제거할 수 있도록 마지막에 삭제 기능 구현.
 //@DeleteMapping: 자원을 제거하는 HTTP 요청.

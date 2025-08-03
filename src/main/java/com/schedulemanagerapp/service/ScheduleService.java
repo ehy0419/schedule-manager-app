@@ -18,65 +18,66 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
     @Transactional
-    public ScheduleResponse save(ScheduleRequest req) {
-        Schedule saved = scheduleRepository.save(
-                new Schedule(req.getScheduleName(), req.getScheduleDescription(), req.getScheduleTime())
-        );
+    public ScheduleResponse save(ScheduleRequest scheduleRequest) {
+        Schedule schedule = new Schedule(scheduleRequest.getTitle());
+        Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponse(
-                saved.getId(),
-                saved.getTitle(),
-                saved.getDescription(),
-                saved.getScheduleTime()
+                savedSchedule.getId(),
+                savedSchedule.getTitle(),
+                savedSchedule.getDescription(),
+                savedSchedule.getScheduleTime()
         );
     }
 
     @Transactional(readOnly = true)
     public List<ScheduleResponse> findSchedules() {
         List<Schedule> schedules = scheduleRepository.findAll();
-        List<ScheduleResponse> responses = new ArrayList<>();
-        for (Schedule s : schedules) {
-            responses.add(new ScheduleResponse(
-                    s.getId(),
-                    s.getTitle(),
-                    s.getDescription(),
-                    s.getScheduleTime()
-            ));
+        List<ScheduleResponse> scheduleResponseList = new ArrayList<>();
+
+        for (Schedule schedule : schedules) {
+            ScheduleResponse scheduleResponse = new ScheduleResponse(
+                    schedule.getId(),
+                    schedule.getTitle(),
+                    schedule.getDescription(),
+                    schedule.getScheduleTime()
+            );
+            scheduleResponseList.add(scheduleResponse);
         }
-        return responses;
     }
 
     @Transactional(readOnly = true)
-    public ScheduleResponse findSchedule(Long id) {
-        Schedule s = scheduleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("일정 id: " + id + " 존재하지 않습니다."));
+    public ScheduleResponse findSchedule(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalArgumentException("일정 Id: " + scheduleId + " 가 존재하지 않습니다.")
+        );
         return new ScheduleResponse(
-                s.getId(),
-                s.getTitle(),
-                s.getDescription(),
-                s.getScheduleTime()
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getDescription(),
+                schedule.getScheduleTime()
         );
     }
 
     @Transactional
-    public ScheduleResponse update(Long id, ScheduleRequest req) {
-        Schedule s = scheduleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("일정 id: " + id + " 존재하지 않습니다."));
-        s.update(req.getScheduleName(), req.getScheduleDescription(), req.getScheduleTime());
+    public ScheduleResponse updateSchedule(Long scheduleId, ScheduleRequest scheduleRequest) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalArgumentException("일정 Id: " + scheduleId + " 가 존재하지 않습니다.")
+        );
+        schedule.updateSchedule(scheduleRequest.getTitle());
         return new ScheduleResponse(
-                s.getId(),
-                s.getTitle(),
-                s.getDescription(),
-                s.getScheduleTime()
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getDescription(),
+                schedule.getScheduleTime()
         );
     }
 
     @Transactional
-    public void deleteSchedule(Long id) {
-        boolean exists = scheduleRepository.existsById(id);
+    public void deleteSchedule(Long scheduleId) {
+        boolean exists = scheduleRepository.existsById(scheduleId);
         if (!exists) {
             throw new IllegalArgumentException("해당 일정 id는 존재하지 않습니다.");
         }
-        scheduleRepository.deleteById(id);
-    }
-
+        scheduleRepository.deleteById(scheduleId);
+    };
 }
