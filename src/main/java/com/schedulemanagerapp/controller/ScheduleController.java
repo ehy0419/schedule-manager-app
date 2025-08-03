@@ -77,7 +77,7 @@ public class ScheduleController {
     public void deleteSchedule(
             @PathVariable Long scheduleId
     ) {
-        return scheduleService.deleteSchedule(scheduleId);
+        scheduleService.deleteSchedule(scheduleId);
     }
 //이유: 불필요한 데이터를 제거할 수 있도록 마지막에 삭제 기능 구현.
 //@DeleteMapping: 자원을 제거하는 HTTP 요청.
