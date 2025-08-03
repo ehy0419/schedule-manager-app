@@ -20,7 +20,7 @@ public class ScheduleService {
     @Transactional
     public ScheduleResponse save(ScheduleRequest scheduleRequest) {
 
-        ///  엔티티 스케줄에서 전체 필드를 받는 생성자 추가.
+        ///  엔티티 스케줄에서 전체 필드를 받는 생성자 추가
         Schedule schedule = new Schedule(
                 scheduleRequest.getTitle(),
                 scheduleRequest.getDescription(),
