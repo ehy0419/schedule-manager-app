@@ -14,24 +14,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Schedule {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
     private String description;
     private LocalDateTime scheduleTime;
 
-    public Schedule(String title, String description, LocalDateTime scheduleTime) {
+    ///  업데이트하고자 하는 필드만 업데이트 해주기
+    public void updateTitle(String title) {
         this.title = title;
-        this.description = description;
-        this.scheduleTime = scheduleTime;
     }
 
-    public void update(String title, String description, LocalDateTime scheduleTime) {
-        this.title = title;
+    public void updateDescription(String description) {
         this.description = description;
-        this.scheduleTime = scheduleTime;
     }
 
+    public void updateScheduleTime(LocalDateTime scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
 }
