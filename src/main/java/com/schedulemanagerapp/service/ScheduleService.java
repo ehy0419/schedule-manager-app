@@ -66,7 +66,11 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalArgumentException("일정 Id: " + scheduleId + " 가 존재하지 않습니다.")
         );
-        schedule.updateSchedule(scheduleRequest.getTitle());
+
+        ///  업데이트스케줄 메서드 호출 수정
+        schedule.updateTitle(scheduleRequest.getTitle());
+        schedule.updateDescription(scheduleRequest.getDescription());
+        schedule.updateScheduleTime(scheduleRequest.getScheduleTime());
         return new ScheduleResponse(
                 schedule.getId(),
                 schedule.getTitle(),
