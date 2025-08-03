@@ -93,5 +93,5 @@ public class ScheduleService {
             throw new IllegalArgumentException("해당 일정 id는 존재하지 않습니다.");
         }
         scheduleRepository.deleteById(scheduleId);
-    };
+    }
 }

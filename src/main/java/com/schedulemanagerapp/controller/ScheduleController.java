@@ -6,6 +6,7 @@ import com.schedulemanagerapp.dto.ScheduleResponse;
 import com.schedulemanagerapp.dto.ScheduleRequest;
 import com.schedulemanagerapp.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,12 +32,14 @@ public class ScheduleController {
 
     ///  메서드 작성 순서 CRUD 중 C. CREATE 일정 생성
     @PostMapping("/schedules")          ///  API 마다 DTO를 따로 만들어주는게 '정석'이다 (유지보수를 위해서)
-    public ScheduleResponse createSchedule(
+
+    /// ResponseEntity 추가
+    public ResponseEntity<ScheduleResponse> createSchedule(
             /// 원래 dto에 나누어서 만들어야한다.
             // ScheduleCreateRequest(또는 SaveRequest) , ScheduleUpdateRequest)
             @RequestBody ScheduleRequest scheduleRequest
     ) {
-        return scheduleService.save(scheduleRequest);
+        return ResponseEntity.ok(scheduleService.save(scheduleRequest));
     }
 //이유: 새로운 데이터를 저장하는 API를 가장 먼저 구현.
 //@PostMapping: 클라이언트가 보낸 데이터를 저장 요청.
@@ -44,16 +47,20 @@ public class ScheduleController {
 
     /// 메서드 작성 순서 CRUD 중 R. READ 전체 조회
     @GetMapping("/schedules")
-    public List<ScheduleResponse> getSchedules() {
-        return scheduleService.findSchedules();
+    public ResponseEntity<List<ScheduleResponse>> getSchedules() {
+        return ResponseEntity.ok(scheduleService.findSchedules());
     }
+    // 수정 전
+//    return scheduleService.findSchedules();
+    // 수정 후
+//    return ResponseEntity.ok(scheduleService.findSchedules());
 
     /// 메서드 작성 순서 CRUD 중 R. READ 단건 조회
     @GetMapping("/schedules/{scheduleId}")
-    public ScheduleResponse getSchedule(
+    public ResponseEntity<ScheduleResponse> getSchedule(
             @PathVariable Long scheduleId
     ) {
-        return scheduleService.findSchedule(scheduleId);
+        return ResponseEntity.ok(scheduleService.findSchedule(scheduleId));
     }
 //이유: 저장된 데이터를 확인할 수 있도록 조회 기능 구현.
 //@GetMapping: URL 호출만으로 데이터 조회.
@@ -62,11 +69,11 @@ public class ScheduleController {
     ///  메서드 작성 순서 CRUD 중 U. UPDATE 일정 수정
 //    @PutMapping("/schedules/{scheduleId}")
     @PatchMapping("/schedules/{scheduleId}")
-    public ScheduleResponse updateSchedule(
+    public ResponseEntity<ScheduleResponse> updateSchedule(
             @PathVariable Long scheduleId,
             @RequestBody ScheduleRequest scheduleRequest
     ) {
-        return scheduleService.updateSchedule(scheduleId, scheduleRequest);
+        return ResponseEntity.ok(scheduleService.updateSchedule(scheduleId, scheduleRequest));
     }
 //이유: 데이터 조회 후, 수정할 수 있는 기능 추가.
 //@PutMapping: 자원의 전체 수정을 의미하는 HTTP 메서드.
