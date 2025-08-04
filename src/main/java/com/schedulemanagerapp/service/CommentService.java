@@ -22,6 +22,7 @@ public class CommentService {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("일정이 존재하지 않습니다."));
 
+        /// 댓글 10개 제한
         if (commentRepository.countByScheduleId(scheduleId) >= 10) {
             throw new IllegalStateException("댓글은 최대 10개까지 작성 가능합니다.");
         }
