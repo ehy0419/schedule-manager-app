@@ -12,6 +12,21 @@ public class ScheduleRequest {
     private String title;
     private String description;
     private LocalDateTime scheduleTime;
+
+    public String validate() {
+
+        // 조건 1 : 일정 제목은 최대 30자 이내, 필수값
+        if (title == null || title.isEmpty()) {
+            return "Title required";
+        }
+        if (description == null || description.isEmpty()) {
+            return "Description required";
+        }
+        if (scheduleTime == null || scheduleTime.isBefore(LocalDateTime.now())) {
+            return "Schedule time cannot be before current time";
+        }
+        return null;
+    }
 }
 
 // 현재 ScheduleRequest 하나로 생성/수정 요청을 모두 처리하고 있다.

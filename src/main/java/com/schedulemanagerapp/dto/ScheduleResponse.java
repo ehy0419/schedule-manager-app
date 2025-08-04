@@ -5,6 +5,7 @@ import com.schedulemanagerapp.entity.Schedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,8 +22,21 @@ public class ScheduleResponse {
 
     /// 레벨6. 일정 단건 조회 시, 해당 일정에 등록된 댓글들을 포함
     // 스케줄 엔티티와 댓글 리스트를 받아서 진행.
-    private final List<CommentResponse> comments;
+    private final List<CommentResponse> comments;       // comments 필드가 final 이어서 반드시 초기화!
 
+    /// 생성자에 6개의 인수
+    // 도전과제 댓글 기능 없을 때 생성자.
+    public ScheduleResponse(Long id, String title, String description, LocalDateTime scheduleTime, LocalDateTime createAt, LocalDateTime modifiedAt) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.scheduleTime = scheduleTime;
+        this.createAt = createAt;
+        this.modifiedAt = modifiedAt;
+        this.comments = new ArrayList<>();      // 댓글이 없는 경우 빈 리스트로 '초기화'
+    }
+
+    ///  댓글 기능을 수행하면서 2개 인자로 축소.
     public ScheduleResponse(Schedule schedule, List<Comment> commentList) {
         this.id = schedule.getId();
         this.title = schedule.getTitle();
@@ -37,17 +51,4 @@ public class ScheduleResponse {
                 .map(CommentResponse::new)
                 .collect(Collectors.toList());
     }
-
-    ///  이후 스케줄 서비스에서 생성자 변경!!
-
-
-    // comments 필드를 초기화 하지 않아서 주석처리
-//    public ScheduleResponse(Long id, String title, String description, LocalDateTime scheduleTime, LocalDateTime createAt, LocalDateTime modifiedAt) {
-//        this.id = id;
-//        this.title = title;
-//        this.description = description;
-//        this.scheduleTime = scheduleTime;
-//        this.createAt = createAt;
-//        this.modifiedAt = modifiedAt;
-//    }
 }
