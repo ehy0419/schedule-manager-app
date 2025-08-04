@@ -16,6 +16,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
+    // 레벨 5 댓글 생성 API
     @PostMapping("/schedules/{scheduleId}/comments")
     public ResponseEntity<CommentResponse> createComment(
             @PathVariable Long scheduleId,

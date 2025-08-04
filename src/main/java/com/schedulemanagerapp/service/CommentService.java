@@ -27,7 +27,12 @@ public class CommentService {
             throw new IllegalStateException("댓글은 최대 10개까지 작성 가능합니다.");
         }
 
-        Comment comment = new Comment(request.getContent(), request.getAuthor(), request.getPassword(), schedule);
+        Comment comment = new Comment(
+                request.getContent(),
+                request.getAuthor(),
+                request.getPassword(),
+                schedule);
+
         Comment saved = commentRepository.save(comment);
         return new CommentResponse(saved);
     }
