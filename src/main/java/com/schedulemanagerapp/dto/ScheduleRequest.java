@@ -19,11 +19,21 @@ public class ScheduleRequest {
         if (title == null || title.isEmpty()) {
             return "Title required";
         }
+        if (title.length() > 30) {
+            return "Title length exceeds";
+        }
+
+        // 조건 2 : 일정 내용은 최대 200자 이내, 필수값
         if (description == null || description.isEmpty()) {
             return "Description required";
         }
+        if (description.length() > 200) {
+            return "Description length exceeds";
+        }
+
+        // 조건 3 : 일정 시간은 필수 - '현재 시간 이후로만 일정을 등록할 수 있어요.'
         if (scheduleTime == null || scheduleTime.isBefore(LocalDateTime.now())) {
-            return "Schedule time cannot be before current time";
+            return "현재 시간 이후로만 일정을 등록할 수 있어요.";
         }
         return null;
     }
