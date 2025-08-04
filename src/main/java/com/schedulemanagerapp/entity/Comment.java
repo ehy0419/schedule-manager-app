@@ -45,5 +45,4 @@ public class Comment {
         this.password = password;
         this.schedule = schedule;
     }
-
 }

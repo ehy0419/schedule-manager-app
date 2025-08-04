@@ -24,5 +24,4 @@ public class CommentController {
     ) {
         return ResponseEntity.ok(commentService.createComment(scheduleId, request));
     }
-
 }

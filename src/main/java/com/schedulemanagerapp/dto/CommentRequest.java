@@ -9,5 +9,4 @@ public class CommentRequest {
     private String content;
     private String author;
     private String password;
-
 }

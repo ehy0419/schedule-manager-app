@@ -19,6 +19,5 @@ public class CommentResponse {
         this.author = comment.getAuthor();
         this.createdAt = comment.getCreatedAt();
         this.modifiedAt = comment.getModifiedAt();
-
     }
 }
