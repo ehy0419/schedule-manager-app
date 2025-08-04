@@ -2,6 +2,7 @@ package com.schedulemanagerapp.service;
 
 import com.schedulemanagerapp.dto.ScheduleRequest;
 import com.schedulemanagerapp.dto.ScheduleResponse;
+import com.schedulemanagerapp.entity.Comment;
 import com.schedulemanagerapp.entity.Schedule;
 import com.schedulemanagerapp.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
