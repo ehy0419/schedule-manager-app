@@ -2,7 +2,9 @@ package com.schedulemanagerapp.service;
 
 import com.schedulemanagerapp.dto.ScheduleRequest;
 import com.schedulemanagerapp.dto.ScheduleResponse;
+import com.schedulemanagerapp.entity.Comment;
 import com.schedulemanagerapp.entity.Schedule;
+import com.schedulemanagerapp.repository.CommentRepository;
 import com.schedulemanagerapp.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+
+    /// 레벨 6: 댓글 조회를 위한 commentRepository 추가
+    private final CommentRepository commentRepository;
 
     @Transactional
     public ScheduleResponse save(ScheduleRequest scheduleRequest) {
@@ -64,14 +69,12 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalArgumentException("일정 Id: " + scheduleId + " 가 존재하지 않습니다.")
         );
-        return new ScheduleResponse(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getDescription(),
-                schedule.getScheduleTime(),
-                schedule.getCreatedAt(),
-                schedule.getModifiedAt()
-        );
+        // 레벨 6: 해당 일정에 등록된 댓글 목록 조회
+        List<Comment> commentList = commentRepository.findByScheduleId(scheduleId);
+
+        // 레벨 6: 댓글 포함된 ScheduleResponse 생성자 사용
+        return new ScheduleResponse(schedule, commentList);
+
     }
 
     @Transactional
