@@ -24,6 +24,8 @@ public class ScheduleController {
             // ScheduleCreateRequest(또는 SaveRequest) , ScheduleUpdateRequest)
             @RequestBody ScheduleRequest scheduleRequest
     ) {
+
+        // (선택) scheduleRequest.validate() 를 호출하여 수동 검증할 수도 있음
         return ResponseEntity.ok(scheduleService.save(scheduleRequest));
     }
 
