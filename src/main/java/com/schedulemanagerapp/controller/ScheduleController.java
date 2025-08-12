@@ -23,9 +23,10 @@ public class ScheduleController {
             /// 원래 dto에 나누어서 만들어야한다.
             // ScheduleCreateRequest(또는 SaveRequest) , ScheduleUpdateRequest)
             @RequestBody ScheduleRequest scheduleRequest
+            // (선택) scheduleRequest.validate() 를 호출하여 수동 검증할 수도 있음
+//            @Valid @RequestBody ScheduleCreateRequest request // @Valid로 자동 검증
+            // Spring이 자동으로 400 Bad Request + 에러 메시지를 내려줍니다.
     ) {
-
-        // (선택) scheduleRequest.validate() 를 호출하여 수동 검증할 수도 있음
         return ResponseEntity.ok(scheduleService.save(scheduleRequest));
     }
 
