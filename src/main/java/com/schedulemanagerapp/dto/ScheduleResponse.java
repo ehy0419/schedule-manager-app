@@ -9,6 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * ScheduleResponse
+ * -------------------
+ * 일정 조회 응답 DTO.
+ * - Entity를 외부로 직접 노출하지 않고, 필요한 필드만 선별하여 반환
+ * - 불변(immutable)하게 설계하면 안전(여기서는 final + 생성자 초기화)
+ */
+
 @Getter
 public class ScheduleResponse {
 
@@ -34,6 +42,7 @@ public class ScheduleResponse {
         this.createAt = createAt;
         this.modifiedAt = modifiedAt;
         this.comments = new ArrayList<>();      // 댓글이 없는 경우 빈 리스트로 '초기화'
+                                                // // 빈 리스트로 초기화(Null-Safety)
     }
 
     ///  댓글 기능을 수행하면서 2개 인자로 축소.

@@ -5,6 +5,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * ScheduleRequest
+ * -------------------
+ * 일정 생성/수정 요청에 사용하는 DTO.
+ * - 컨트롤러로 들어오는 외부 입력을 표현한다.
+ * - 유효성 검사는 여기에서 수동(validate) 또는 Bean Validation으로 처리 가능.
+ */
+
 @Getter
 @NoArgsConstructor
 public class ScheduleRequest {
@@ -12,6 +20,11 @@ public class ScheduleRequest {
     private String title;
     private String description;
     private LocalDateTime scheduleTime;
+
+    /**
+     * 수동 유효성 검사(간단 버전)
+     * - 실제 운영에서는 Bean Validation(@NotBlank, @Size, @Future 등) 사용 권장
+     */
 
     public String validate() {
 

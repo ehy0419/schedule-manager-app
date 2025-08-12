@@ -5,6 +5,13 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/**
+ * CommentResponse
+ * -------------------
+ * 댓글 조회 응답 DTO.
+ * - Entity -> DTO 변환 생성자 제공
+ */
+
 @Getter
 public class CommentResponse {
     private final Long id;
